@@ -1,5 +1,5 @@
 class WinesController < ApplicationController
-  
+
   def index
     @wines = Wine.all
   end
@@ -21,8 +21,13 @@ class WinesController < ApplicationController
     end
   end
 
+  def grape_variety
+    grape = Grape.find_by(varietal: params[:type])
+    @varieties = Wine.where(grape_id: grape.id)
+  end
+
   def variety
-    @varieties = Grape.where(variety: params[:type])
+    @varieties = Wine.where(category_type: params[:type])
   end
 
   private
@@ -30,7 +35,7 @@ class WinesController < ApplicationController
   def wine_params
     params.require(:wine).permit(
       :vintage,
-      :winery,   
+      :winery,
       :grape_type,
       :appellation,
       :variety,
@@ -40,7 +45,8 @@ class WinesController < ApplicationController
       :acidity,
       :tanin,
       :fruit,
-      :body
+      :body,
+      :photo
      )
   end
 end

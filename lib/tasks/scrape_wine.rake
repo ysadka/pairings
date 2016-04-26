@@ -12,27 +12,42 @@ task scrape_wine: :environment do
 
     p 'got wines'
 
+    def pull_category_type(varietal)
+      case varietal.downcase
+      when 'red wines'
+        'red'
+      when 'white wines'
+        'white'
+      when 'rosé wines'
+        'rosé'
+      when 'champagne & sparkling'
+        'champagne & sparkling'
+      when 'dessert, fortified & fruit wines'
+        'dessert, fortified & fruit wines'
+      end
+    end
+
     wines.each do |wine|
       if wine['Type'] == 'Wine'
         appellation = wine['Appellation']
         p wine
-        p r = Region.find_or_create_by(name: appellation['Region']['Name'])
-        p a = r.appellations.find_or_create_by(name: appellation['Name'])
+        p r = Region.find_or_create_by(name: appellation['Region']['Name'].downcase)
+        p a = r.appellations.find_or_create_by(name: appellation['Name'].downcase)
 
         p w = Winery.find_or_create_by(
-          name: wine['Vineyard']['Name'],
+          name: wine['Vineyard']['Name'].downcase,
           appellation_id: a.id,
           region_id: r.id
         )
-        p g = Grape.find_or_create_by(varietal: wine['Varietal']['Name'])
+        p g = Grape.find_or_create_by(varietal: wine['Varietal']['Name'].downcase)
 
         p wine
-          vino = Wine.new
-          vino.vintage = wine['Name'].split(' ').last.to_i
-          vino.winery_id = w.id
-          vino.grape_id = g.id
-          vino.category_type = wine['Varietal']['WineType']['Name']
-          p vino.save
+        vino = Wine.new
+        vino.vintage = wine['Name'].split(' ').last.to_i
+        vino.winery_id = w.id
+        vino.grape_id = g.id
+        vino.category_type = pull_category_type(wine['Varietal']['WineType']['Name'].downcase)
+        p vino.save
       end
     end
     sleep 3

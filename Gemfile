@@ -1,24 +1,22 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
+ruby '2.3.0'
 
-gem 'rails', '4.1.0'
-
-gem 'pg'
+gem 'rails', '4.2.5'
+gem 'pg', '~> 0.15'
 
 gem 'aws-sdk'
-gem 'bcrypt-ruby', '~> 3.0.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'bcrypt', '~> 3.1.10'
+gem 'coffee-rails', '~> 4.1.0'
 gem 'compass'
 gem 'figaro'
 gem 'haml'
-gem 'iron_worker_ng'
-gem 'jbuilder', '~> 1.2' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'newrelic_rpm'
 gem 'paperclip'
 gem 'redis'
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 5.0'
 gem 'sidekiq'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
@@ -36,11 +34,11 @@ group :development do
   gem 'guard'
   gem 'guard-rspec'
   gem 'sextant'
+  gem 'spring' #do i want/need this?
 end
 
 group :test, :development do
   gem 'capybara'
-  gem 'debugger'
   gem 'factory_girl_rails'
   gem 'rspec'
   gem 'rspec-core'
@@ -50,6 +48,9 @@ group :test, :development do
   gem 'shoulda-matchers'
   gem 'simplecov', :require => false
   gem 'zeus', '>= 0.13.4.pre2'
+
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug' #do i want/need this?
 end
 
 group :test do

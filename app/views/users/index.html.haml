@@ -8,7 +8,7 @@
     %hr
     %ul
       -@wines.each do |wine|
-        %li= link_to "#{wine.vintage} #{wine.grape.name} #{wine.winery.name}", wine_path(wine.id)
+        %li= link_to "#{wine.winery.name_as_a_title} #{wine.vintage} #{wine.grape.varietal_as_a_title}", wine_path(wine.id)
 
   .columns.large-5
     %h4 Cheeses

@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_filter :nav_info
+
   def index
     @wines = Wine.all.limit(5)
     @cheeses = Cheese.all.limit(5)
@@ -28,7 +30,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    
+
   end
 
   def destroy
@@ -38,6 +40,12 @@ class UsersController < ApplicationController
   end
 
   private
+
+  include NavHelper
+
+  def nav_info
+    wine_sub_segments
+  end
 
   def user_params
     #insert params here
